@@ -18,15 +18,18 @@ INS_SQL="""
 try:
     connect=pymssql.connect(server,user,password,database)
     cursor=connect.cursor()
+
     for i in range(1,30):
-        rp=random.randint(1800,1999)
-        cursor.execute(INS_SQL,("2330","TSMC",rp))
-        connect.commit
-    print(f'第{i}次擷取,金額 {rp}')
-    if( i < 30 ):  
-        time.sleep(3)
-        
-    connect.close()
+        rp = random.randint(1850,1905)
+        cursor.execute(INS_SQL, ("2330","TSMC",rp))
+        connect.commit()
+        print(f'第{i}次擷取,金額 {rp}')
+        if( i < 30 ):  
+            time.sleep(3)
+    
+    print("資料寫入完畢")
     cursor.close()
+    connect.close()
+
 except Exception as e: 
     print(f'連線失敗: 原因{e}')
